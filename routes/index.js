@@ -27,6 +27,10 @@ router.post('/api/v1/todos', function(req, res){
 
         var query = client.query("SELECT * FROM items ORDER BY id ASC");
 
+        query.on('row', function(row){
+            results.push(row);
+        });
+
         query.on('end', function(){
             done();
             return res.json(results);
